@@ -16,7 +16,7 @@ def post_view(id):
         return redirect(url_for('.post_view', id=id))
     post = Post.query.get(id)
     # 暂时返回10条评论
-    comments = Comment.query.order_by(Comment.created_at.desc()).limit(10)
+    comments = Comment.query.filter_by(post_id=id).order_by(Comment.created_at.desc()).limit(10)
     return render_template('post_view.html', post=post, form=form, comments=comments)
 
 
