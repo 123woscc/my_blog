@@ -16,6 +16,9 @@ flask-login = "*"
 flask-wtf = "*"
 flask-admin = "*"
 flask-babelex = "*"
+flask-pagedown = "*"
+bleach = "*"
+markdown = "*"
 
 
 [dev-packages]

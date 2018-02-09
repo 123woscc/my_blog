@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 
 from .config import configs
 from .models import db
-from .ext import bootstrap, login_manager, babel
+from .ext import bootstrap, login_manager, babel, pagedown
 from .admin import admin
 
 
@@ -19,6 +19,7 @@ def register_extensions(app):
     login_manager.init_app(app)
     admin.init_app(app)
     babel.init_app(app)
+    pagedown.init_app(app)
 
 
 # 注册蓝图

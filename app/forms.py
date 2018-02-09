@@ -4,6 +4,7 @@ from wtforms.fields import StringField, PasswordField, TextField, SubmitField, S
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import Length, Email, Required, StopValidation, DataRequired
 from flask_login import current_user
+from flask_pagedown.fields import PageDownField
 
 from app.models import db, User, Topic, Post, Comment
 
@@ -41,10 +42,12 @@ class PostForm(FlaskForm):
         query_factory=query_factory,
         get_pk=get_pk,
         get_label='name')
-    content = TextAreaField(validators=[Required()])
+    # content = TextAreaField(validators=[Required()])
+    content = PageDownField(validators=[Required()])
     submit = SubmitField('发布')
 
     def create_post(self):
+        print(self.content.data)
         post = Post(
             title=self.title.data,
             content=self.content.data,

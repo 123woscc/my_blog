@@ -25,8 +25,9 @@ def post_view(id):
 def post_new():
     form = PostForm()
     if form.validate_on_submit():
+        print('ok')
         form.create_post()
-        return redirect(url_for('.new_post'))
+        return redirect(url_for('main.index'))
     return render_template('post_new.html', form=form)
 
 

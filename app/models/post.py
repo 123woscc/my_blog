@@ -1,5 +1,8 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
+import bleach
+from markdown import markdown
+
 from .base import db, Base
 
 
@@ -18,6 +21,8 @@ class Post(Base):
     topic_id = Column(Integer, ForeignKey('topic.id'), nullable=False)
     topic = relationship('Topic', backref='posts', uselist=False)
 
+    content_html = Column(Text)
+
     def __repr__(self):
         return '<Post:{}>'.format(self.title)
 
@@ -30,3 +35,22 @@ class Post(Base):
             'user': self.user.to_dict(),
             'topic': self.topic.to_dict()
         }
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        # 需要转换的标签
+        allowed_tags = [
+            'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li',
+            'ol', 'pre', 'strong', 'ul', 'h1', 'h2', 'h3', 'p', 'img'
+        ]
+        # 需要提取的标签属性，否则会被忽略掉
+        attrs = {'*': ['class'], 'a': ['href', 'rel'], 'img': ['src', 'alt']}
+        target.content_html = bleach.linkify(
+            bleach.clean(
+                markdown(value, output_format='html'),
+                tags=allowed_tags,
+                attributes=attrs,
+                strip=True))
+
+
+db.event.listen(Post.content, 'set', Post.on_changed_body)

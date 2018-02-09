@@ -5,7 +5,12 @@
 {{post.title}}
 </h1>
 <div>
-    {{post.content}}
+    <!-- {{post.content}} -->
+     {% if post.content_html %} 
+        {{ post.content_html | safe }} 
+    {% else %} 
+        {{ post.content }} 
+    {% endif %}
 </div>
 <br>
 <h3 class="page_header">添加评论</h3>
