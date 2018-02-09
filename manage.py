@@ -42,7 +42,7 @@ def create_admin():
     print('创建管理员成功!')
     topic_list = current_app.config['TOPICS']
     for t in topic_list:
-        topic = Topic(t, '')
+        topic = Topic(name=t)
         db.session.add(topic)
         db.session.commit()
     print('创建文章分类成功!')
@@ -67,7 +67,7 @@ def create_test_data():
     # 创建文章分类
     topic_list = ['随笔', 'Python', '其他']
     for t in topic_list:
-        topic = Topic(t, '')
+        topic = Topic(name=t)
         db.session.add(topic)
         db.session.commit()
     print('创建文章分类成功!')
