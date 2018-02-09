@@ -15,9 +15,11 @@ migrate = Migrate(app, db)
 manager.add_command('server', Server())
 manager.add_command('db', MigrateCommand)
 
+
 @manager.shell
 def make_shell_context():
     return dict(app=app)
+
 
 # 初始化数据库
 @manager.command
@@ -38,7 +40,7 @@ def create_admin():
     db.session.add(user)
     db.session.commit()
     print('创建管理员成功!')
-    topics = current_app.config['TOPICS']
+    topic_list = current_app.config['TOPICS']
     for t in topic_list:
         topic = Topic(t, '')
         db.session.add(topic)

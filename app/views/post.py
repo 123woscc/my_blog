@@ -1,17 +1,23 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from flask_login import login_required
 
-from ..models import Post, Topic
-from ..forms import PostForm
+from ..models import Post, Topic, Comment
+from ..forms import PostForm, CommentForm
 
 
 post = Blueprint('post', __name__, url_prefix='/post')
 
 
-@post.route('/<int:id>', methods=['GET'])
+@post.route('/<int:id>', methods=['GET', 'POST'])
 def post_view(id):
+    form = CommentForm()
+    if form.validate_on_submit():
+        form.create_comment(id)
+        return redirect(url_for('.post_view', id=id))
     post = Post.query.get(id)
-    return render_template('post_view.html', post=post)
+    # 暂时返回10条评论
+    comments = Comment.query.order_by(Comment.created_at.desc()).limit(10)
+    return render_template('post_view.html', post=post, form=form, comments=comments)
 
 
 @post.route('/new', methods=['GET', 'POST'])

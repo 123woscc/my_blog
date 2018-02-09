@@ -1,9 +1,36 @@
 {% extends 'layout.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block page_content %}
 <h1 class="page_header">
 {{post.title}}
 </h1>
 <div>
     {{post.content}}
+</div>
+<br>
+<h3 class="page_header">添加评论</h3>
+<div>
+    {{wtf.quick_form(form)}}
+</div>
+<br>
+<h3>评论</h3>
+<div>
+    {% if comments %}
+     {% for c in comments %}
+    <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object" src="..." alt="...">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">{{c.name}}</h4>
+            {{c.content}}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>暂无评论</p>
+    {% endif %}
 </div>
 {% endblock %}
