@@ -19,4 +19,4 @@ class Comment(Base):
         return '<Comment:{}>'.format(self.id)
 
     def to_dict(self):
-        return {'name': self.name, 'email': self.email, 'content':self.content}
+        return {'name': self.name, 'email': self.email, 'content':self.content, 'post_id': self.post_id}

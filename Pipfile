@@ -19,6 +19,7 @@ flask-babelex = "*"
 flask-pagedown = "*"
 bleach = "*"
 markdown = "*"
+flask-httpauth = "*"
 
 
 [dev-packages]

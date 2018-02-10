@@ -27,10 +27,12 @@ def register_bluprints(app):
     from .views import main
     from .views import auth
     from .views import post
+    from .api import api
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
     app.register_blueprint(post)
+    app.register_blueprint(api)
 
 
 # 注册错误控制
@@ -50,7 +52,6 @@ def register_context_processors(app):
         from .models import Topic
         topics = Topic.query.all()
         return dict(topics=topics)
-
 
 
 # 工厂模式

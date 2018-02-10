@@ -33,7 +33,6 @@ def post_new():
 
 @post.route('/search')
 def post_search():
-    print(request.form)
     kw = request.args.get('kw', None)
     page = request.args.get('page', 1, type=int)
     if kw:
