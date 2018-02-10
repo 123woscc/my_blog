@@ -53,3 +53,41 @@ def get_pk_from_identity(obj):
     return u':'.join(text_type(x) for x in key)
 ```
 原理: app.cloudcone.com/compute
+
+## API使用
+1. 获取单篇文章:
+格式:
+[GET]http://127.0.0.1:5000/api/post?post_id=[文章id]
+示例:
+http://127.0.0.1:5000/api/post?post_id=1
+2. 获取多篇文章:
+格式:
+[GET]http://127.0.0.1:5000/api/posts?page=[页数]&topic_id=[话题id]
+示例:
+    > 默认最新的10篇文章
+
+    http://127.0.0.1:5000/api/posts
+    > 获取的二页的10篇文章 
+
+    http://127.0.0.1:5000/api/posts?page=2
+    > 获取指定话题下的文章
+
+    http://127.0.0.1:5000/api/posts?topic_id=2
+
+3. 创建文章流程[基于HTTPBasicAuth]:
+    * 授权获取token
+    [GET]http://127.0.0.1:5000/api/token
+    必选参数:
+    email, password
+    * 携带token创建文章
+    [POST]http://127.0.0.1:5000/api/posts
+    参数:
+        title
+        topic
+        content
+
+4. 获取文章的评论:
+格式:
+[GET] http://127.0.0.1:5000/api/comments?post_id=[文章id]
+示例:
+http://127.0.0.1:5000/api/comments?post_id=1
