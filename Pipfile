@@ -20,6 +20,7 @@ flask-pagedown = "*"
 bleach = "*"
 markdown = "*"
 flask-httpauth = "*"
+faker = "*"
 
 
 [dev-packages]
